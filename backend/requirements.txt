@@ -1,0 +1,6 @@
+django>=5.1,<6
+psycopg[binary]>=3.2
+gunicorn>=22
+whitenoise>=6.7
+dj-database-url>=2.2
+django-jazzmin>=3.0

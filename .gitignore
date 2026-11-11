@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+staticfiles/
+node_modules/
+.neon
+neon.ts
+package.json
+package-lock.json
+.claude/

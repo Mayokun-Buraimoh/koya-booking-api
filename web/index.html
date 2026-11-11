@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinic Booking</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Django will replace these two values when it serves this page. -->
+  <script>
+    window.APP_CONFIG = { apiKey: "dev-key", baseUrl: "" };
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Clinic Booking</h1>
+    <p>Pick an available slot and book your appointment.</p>
+  </header>
+
+  <main>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <!-- Confirmation -->
+    <section id="confirmation" class="card confirmation" hidden aria-labelledby="confirm-title">
+      <h2 id="confirm-title">Booking confirmed ✓</h2>
+      <dl id="confirmation-details"></dl>
+      <div class="actions">
+        <button type="button" id="view-booking" class="btn">View this booking</button>
+        <button type="button" id="cancel-booking" class="btn">Cancel this booking</button>
+        <button type="button" id="book-another" class="btn">Book another</button>
+      </div>
+    </section>
+
+    <!-- Booking form -->
+    <section id="booking-form-section" class="card" hidden aria-labelledby="form-title">
+      <h2 id="form-title">Book this slot</h2>
+      <p id="selected-slot" class="selected-slot"></p>
+      <form id="booking-form" novalidate>
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+        <p class="field-error" id="name-error" role="alert"></p>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+        <p class="field-error" id="email-error" role="alert"></p>
+
+        <p class="form-error" id="form-error" role="alert"></p>
+
+        <div class="actions">
+          <button type="submit" id="submit-btn" class="btn primary">Confirm booking</button>
+          <button type="button" id="cancel-form" class="btn">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Slots -->
+    <section id="slots-section" class="card" aria-labelledby="slots-title">
+      <div class="section-head">
+        <h2 id="slots-title">Available slots</h2>
+        <label class="inline" for="provider-filter">
+          Provider
+          <select id="provider-filter"><option value="">All</option></select>
+        </label>
+      </div>
+      <div id="slots-list" aria-live="polite"></div>
+    </section>
+
+    <!-- Look up one booking by reference (Level 1) -->
+    <section id="lookup-section" class="card" aria-labelledby="ref-title">
+      <h2 id="ref-title">Look up a booking</h2>
+      <p class="selected-slot">Enter the reference from your confirmation.</p>
+      <form id="ref-form" class="lookup" novalidate>
+        <label for="ref-input" class="visually-hidden">Booking reference</label>
+        <input id="ref-input" type="text" placeholder="Booking reference" autocomplete="off" required>
+        <button type="submit" class="btn primary">Look up</button>
+      </form>
+      <p class="form-error" id="ref-error" role="alert"></p>
+      <dl id="ref-result" hidden></dl>
+      <button type="button" id="ref-cancel" class="btn" hidden>Cancel this booking</button>
+    </section>
+
+    <!-- My bookings (Level 4) -->
+    <section id="my-bookings-section" class="card" aria-labelledby="mine-title">
+      <h2 id="mine-title">All my bookings</h2>
+      <form id="lookup-form" class="lookup" novalidate>
+        <label for="lookup-email" class="visually-hidden">Your email</label>
+        <input id="lookup-email" type="email" placeholder="Enter your email" autocomplete="email" required>
+        <button type="submit" class="btn">Find</button>
+        <label for="page-size" class="visually-hidden">Bookings per page</label>
+        <select id="page-size" title="Bookings per page">
+          <option value="2">2 / page</option>
+          <option value="5">5 / page</option>
+          <option value="10" selected>10 / page</option>
+          <option value="25">25 / page</option>
+          <option value="50">50 / page</option>
+        </select>
+      </form>
+      <p class="form-error" id="lookup-error" role="alert"></p>
+      <ul id="bookings-list" class="bookings"></ul>
+      <button type="button" id="load-more" class="btn" hidden>Load more</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
